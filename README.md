@@ -76,8 +76,9 @@ SOURCE db/schema.sql;
 ---
 ### End goal of MySQL Initialization
 
-* `the code you require to type is in brown branket` (You can restart at anypoint if you have done a mistake)
+* `the code you require to type is in orange branket` (You can restart at anypoint if you have done a mistake)
 ![DataBase-Initialization](./db-init.png)
+
 <br>
 <br>
 
@@ -109,8 +110,8 @@ The second initialization is .env, .env is used to store your user credential an
 * If you want to use sample data, type **node seeds/index.js** as you are initializing the database
 
 ### End goal of .seeds Initialization
-
-![Seeds-Initialization](./-init.png)
+* `the code you require to type is in orange branket`
+![Seeds-Initialization](./seed-init.png)
 ---
 
 **Initialization is done! You do not have to repeat the steps above unless you are re-deploying or changing user**
