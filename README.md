@@ -103,17 +103,12 @@ Your database should contain the following four models, including the requiremen
     * Validates that the value is a decimal.
 
   * `stock`
-  
-    * Integer.
-  
-    * Doesn't allow null values.
-  
-    * Set a default value of `10`.
-  
-    * Validates that the value is numeric.
 
+    * Integer.
+    * Doesn't allow null values.
+    
+    * Validates that the value is numeric.
   * `category_id`
-  
     * Integer.
   
     * References the `Category` model's `id`.
