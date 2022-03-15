@@ -1,243 +1,189 @@
-# 13 Object-Relational Mapping (ORM): E-Commerce Back End
 
-## Your Task
+# E-commerce Back End
 
-Internet retail, also known as **e-commerce**, is the largest sector of the electronics industry, generating an estimated $29 trillion in 2019. E-commerce platforms like Shopify and WooCommerce provide a suite of services to businesses of all sizes. Due to their prevalence, understanding the fundamental architecture of these platforms will benefit you as a full-stack web developer.
+## Table of Content: 
+* [Deploy link](#Deploy-link)
+* [Description](#Description)
+* [Installation](#Installation)
+* [REST](#rest)
+* [Initialization Guide](#Initialization-Guide)
+* [User Guide](#User-Guide)
+* [Third Party Package](#Third-party-package-used)
+* [Screenshot](#Screenshot)
+* [Video Demo](#Video-demo)
 
-Your task is to build the back end for an e-commerce site by modifying starter code. You’ll configure a working Express.js API to use Sequelize to interact with a MySQL database.
+## Deploy Link
+https://github.com/Aurorachama/
 
-Because this application won’t be deployed, you’ll also need to provide a link to a walkthrough video that demonstrates its functionality and all of the acceptance criteria being met. You’ll need to submit a link to the video and add it to the readme of your project.
+## Description 
 
-## User Story
+This is a e-commerce site and its database (using mySQL) created by Express.js and SQL with Sequelize used as a interaction to MySQL (dialect for the SQL query).
 
-```md
-AS A manager at an internet retail company
-I WANT a back end for my e-commerce website that uses the latest technologies
-SO THAT my company can compete with other e-commerce companies
-```
+## Installation 
+### This application requires node.js and mysql
+**MySQL will be used as the sql management system also known as dialect for the SQL query. Please install node.js before using this application**
 
-## Acceptance Criteria
+***For information about MySQL : [Installation guide for MySQL](https://dev.mysql.com/doc/refman/8.0/en/installing.html)*** <br> <br>
 
-```md
-GIVEN a functional Express.js API
-WHEN I add my database name, MySQL username, and MySQL password to an environment variable file
-THEN I am able to connect to a database using Sequelize
-WHEN I enter schema and seed commands
-THEN a development database is created and is seeded with test data
-WHEN I enter the command to invoke the application
-THEN my server is started and the Sequelize models are synced to the MySQL database
-WHEN I open API GET routes in Insomnia for categories, products, or tags
-THEN the data for each of these routes is displayed in a formatted JSON
-WHEN I test API POST, PUT, and DELETE routes in Insomnia
-THEN I am able to successfully create, update, and delete data in my database
-```
+***This application also relies on node.js as its run-time enviornment. Please install node.js before using this application***
 
-## Mock-Up
+***For information about node.js : [Node.js](https://nodejs.org/)***
+* Clone this project using git clone <url> or Download ZIP, then use a command line to  run ``` npm i ``` to install necessary packages (inquirer)
+---
+<br>
+<br>
 
-The following animation shows the application's GET routes to return all categories, all products, and all tags being tested in Insomnia:
+## REST
+**Despite this project is usind Express.js, thus somewhat indicates that this is based on a HTTP structure,** <br>
+**Although using Web Browser can perform HTTP Get Request, as there are not structured HTML element in this project to perform other request such as POST, DELETE, PUT request (which plays a important part of the project). It is recommended to use some form of REST client. `Insomnia` will be used as the prefered and demostration REST client for this project**
 
-![In Insomnia, the user tests “GET tags,” “GET Categories,” and “GET All Products.”.](./Assets/13-orm-homework-demo-01.gif)
+**For information about Insomnia : [Insomnia](https://insomnia.rest/)**
 
-The following animation shows the application's GET routes to return a single category, a single product, and a single tag being tested in Insomnia:
+**For information about REST : [REST](https://developer.mozilla.org/en-US/docs/Glossary/REST)**
 
-![In Insomnia, the user tests “GET tag by id,” “GET Category by ID,” and “GET One Product.”](./Assets/13-orm-homework-demo-02.gif)
-
-The following animation shows the application's POST, PUT, and DELETE routes for categories being tested in Insomnia:
-
-![In Insomnia, the user tests “DELETE Category by ID,” “CREATE Category,” and “UPDATE Category.”](./Assets/13-orm-homework-demo-03.gif)
-
-Your walkthrough video should also show the POST, PUT, and DELETE routes for products and tags being tested in Insomnia.
-
-## Getting Started
-
-You’ll need to use the [MySQL2](https://www.npmjs.com/package/mysql2) and [Sequelize](https://www.npmjs.com/package/sequelize) packages to connect your Express.js API to a MySQL database and the [dotenv](https://www.npmjs.com/package/dotenv) package to use environment variables to store sensitive data.
-
-Use the `schema.sql` file in the `db` folder to create your database with MySQL shell commands. Use environment variables to store sensitive data like your MySQL username, password, and database name.
-
-### Database Models
-
-Your database should contain the following four models, including the requirements listed for each model:
-
-* `Category`
-
-  * `id`
-
-    * Integer.
-  
-    * Doesn't allow null values.
-  
-    * Set as primary key.
-  
-    * Uses auto increment.
-
-  * `category_name`
-  
-    * String.
-  
-    * Doesn't allow null values.
-
-* `Product`
-
-  * `id`
-  
-    * Integer.
-  
-    * Doesn't allow null values.
-  
-    * Set as primary key.
-  
-    * Uses auto increment.
-
-  * `product_name`
-  
-    * String.
-  
-    * Doesn't allow null values.
-
-  * `price`
-  
-    * Decimal.
-  
-    * Doesn't allow null values.
-  
-    * Validates that the value is a decimal.
-
-  * `stock`
-
-    * Integer.
-    * Doesn't allow null values.
-    
-    * Validates that the value is numeric.
-  * `category_id`
-    * Integer.
-  
-    * References the `Category` model's `id`.
-
-* `Tag`
-
-  * `id`
-  
-    * Integer.
-  
-    * Doesn't allow null values.
-  
-    * Set as primary key.
-  
-    * Uses auto increment.
-
-  * `tag_name`
-  
-    * String.
-
-* `ProductTag`
-
-  * `id`
-
-    * Integer.
-
-    * Doesn't allow null values.
-
-    * Set as primary key.
-
-    * Uses auto increment.
-
-  * `product_id`
-
-    * Integer.
-
-    * References the `Product` model's `id`.
-
-  * `tag_id`
-
-    * Integer.
-
-    * References the `Tag` model's `id`.
-
-### Associations
-
-You'll need to execute association methods on your Sequelize models to create the following relationships between them:
-
-* `Product` belongs to `Category`, and `Category` has many `Product` models, as a category can have multiple products but a product can only belong to one category.
-
-* `Product` belongs to many `Tag` models, and `Tag` belongs to many `Product` models. Allow products to have multiple tags and tags to have many products by using the `ProductTag` through model.
-
-> **Hint:** Make sure you set up foreign key relationships that match the column we created in the respective models.
-
-### Fill Out the API Routes to Perform RESTful CRUD Operations
-
-Fill out the unfinished routes in `product-routes.js`, `tag-routes.js`, and `category-routes.js` to perform create, read, update, and delete operations using your Sequelize models.
-
-Note that the functionality for creating the many-to-many relationship for products has already been completed for you.
-
-> **Hint**: Be sure to look at the mini-project code for syntax help and use your model's column definitions to figure out what `req.body` will be for POST and PUT routes!
-
-### Seed the Database
-
-After creating the models and routes, run `npm run seed` to seed data to your database so that you can test your routes.
-
-### Sync Sequelize to the Database on Server Start
-
-Create the code needed in `server.js` to sync the Sequelize models to the MySQL database on server start.
-
-## Grading Requirements
-
-This homework is graded based on the following criteria: 
-
-### Deliverables: 10%
-
-* The GitHub repository containing your application code.
-
-### Walkthrough Video: 37%
-
-* A walkthrough video that demonstrates the functionality of the e-commerce back end must be submitted, and a link to the video should be included in your readme file.
-
-* The walkthrough video must show all of the technical acceptance criteria being met.
-
-* The walkthrough video must demonstrate how to create the schema from the MySQL shell.
-
-* The walkthrough video must demonstrate how to seed the database from the command line.
-
-* The walkthrough video must demonstrate how to start the application’s server.
-
-* The walkthrough video must demonstrate GET routes for all categories, all products, and all tags being tested in Insomnia.
-
-* The walkthrough video must demonstrate GET routes for a single category, a single product, and a single tag being tested in Insomnia.
-
-* The walkthrough video must demonstrate POST, PUT, and DELETE routes for categories, products, and tags being tested in Insomnia.
-
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the preceding acceptance criteria plus the following:
-
-  * Connects to a MySQL database using the [MySQL2](https://www.npmjs.com/package/mysql) and [Sequelize](https://www.npmjs.com/package/sequelize) packages.
-
-  * Stores sensitive data, like a user’s MySQL username, password, and database name, using environment variables through the [dotenv](https://www.npmjs.com/package/dotenv) package.
-
-  * Syncs Sequelize models to a MySQL database on the server start.
-
-  * Includes column definitions for all four models outlined in the homework instructions.
-
-  * Includes model associations outlined in the homework instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains quality readme with description and a link to a walkthrough video.
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* A walkthrough video demonstrating the functionality of the application and all of the acceptance criteria being met.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a readme describing the project.
+<br>
 
 ---
-© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+## Initialization Guide
+**Before using the application, initialization of database and connection is critical**
+
+**MySQL Initialization**
+
+[Installation guide for MySQL](https://dev.mysql.com/doc/refman/8.0/en/installing.html)
+
+`After completion of installing MySQL and creating users, it is essential to initialize the database`
+
+* Visit the subfolder 'db', open up a terminal (commend line interface). Type in 
+```
+mysql -u [replace with username] -p
+```
+<br>
+
+* Then, enter the password for this user. After that, type in
+```
+SOURCE schema.sql;
+```
+
+`Alternatively, If you start from main folder, type`
+``` 
+SOURCE db/schema.sql;
+```
+
+* This will create a new SQL database named 'ecommerce_db'. `Be ware that Schema.sql will drop (delete) existing database named 'ecommerce_db' before creating a new one, please double-check and backup if you have existing database named using the same name`
+
+* You can rename the database name however you like by changing the 'ecommerce_db' field in `schema.sql` and `.env` file
+
+---
+### End goal of MySQL Initialization
+
+* `the code you require to type is in brown branket` (You can restart at anypoint if you have done a mistake)
+![DataBase-Initialization](./db-init.png)
+<br>
+<br>
+
+**.env file Initialization**
+
+```
+The second initialization is .env, .env is used to store your user credential and used to connect to the database by javascript so it is important to do so
+```
+* Go back to the root folder, you can see a file named `.env.EXAMPLE`
+
+* You can choose any `text(.txt) editor` as program to open the `.env.EXAMPLE` file. Example would be `Notepad` (Included for Windows), `TextEdit` (Included for MacOS) or any Third party one like `Notepad++`
+
+* This file is the format of the env file you would want to create
+
+* You should change the `DB_USER` and `DB_PASSWORD` as the credential you use to login to MySQL
+
+* You can either rename the file as .env or
+* create a text file, Copy .env.EXAMPLE and save it new as a .env file
+* **.env is the extension name of the file, if the text editor ask you about the extension of the file, leave it or `choose any file type in Notepad`**
+---
+### End goal of .env Initialization
+
+![env-Initialization](./env-init.png)
+---
+---
+
+**seeds file Initialization**
+* Inside `seeds` folder is some sample data for the database, you can choice to insert them the your database or start from scratch. 
+* If you want to use sample data, type **node seeds/index.js** as you are initializing the database
+
+### End goal of .seeds Initialization
+
+![Seeds-Initialization](./-init.png)
+---
+
+**Initialization is done! You do not have to repeat the steps above unless you are re-deploying or changing user**
+<br>
+<br>
+<br>
+## User Guide
+User then can type 
+``` 
+node server.js
+```
+or 
+``` 
+npm start
+```
+to run the code. 
+
+* Then, you can access the application by http://localhost:3001 (3001 or other port otherwise specify in .env file)
+
+* Breakpoint or Routes includes:
+```
+/api/products (http://localhost:3001/api/products) for enquiring product related information
+
+/api/categories (http://localhost:3001/api/products) for enquiring category related information (associated product details will also be included as a part of GET Response(json only))
+
+/api/tags (http://localhost:3001/api/products) for enquiring tag related information (associated product details will also be included as a part of GET Response(json only))
+```
+
+* Request & Response type for each endpoint
+
+**Although there are three categories of endpoint, each endpoint have the same set of function Request & Response type**
+
+```
+GET request
+    Get All the information of the category of endpoint (with its assoicated information as response)
+
+GET request by id (eg: GET: api/products/1)
+    Get the specific item matched with the id at the category of endpoint (with its assoicated information as response)
+
+POST request
+    Creates a new item at the category of endpoint with the information detailed in the request json
+
+PUT request by id (eg: PUT: api/products/1)
+    Updates the specific item matched with the id at the category of endpoint with the information detailed in the request json
+
+DELETE request by id (eg: DELETE: api/products/1)
+    Delete the specific item matched with the id at the category of endpoint
+```
+
+* Here is a photo of every coloumn in every set of endpoint for reference to requesting
+![Referencing](./coloumn-ref.png)
+
+
+## Third party Javascript package used
+[Inquirer](https://github.com/SBoudrias/Inquirer.js) <br>
+[Console Table](https://github.com/bahmutov/console.table) <br>
+[Dotenv](https://github.com/motdotla/dotenv) <br>
+[MySQL2](https://github.com/sidorares/node-mysql2) <br>
+
+
+## Screenshot
+**Commencing GET request api/products route in Insomnia**
+![Commencing GET api/products route in Insomnia](./commencing.png) <br> <br>
+**Commencing GET request api/products/1 route in Insomnia**
+![Commencing GET api/products/1 route in Insomnia](./commencing1.png) <br> <br>
+
+**Commencing POST request api/products route in Insomnia**
+
+**!!!Beware!!! If you need to POST new product with tagId for the tag model, use 'tagIds' in your request and formluate them (If you want to add more of one) in a array.** ![Commencing POST request api/products route in Insomnia](./post.png) <br> <br>
+
+**Commencing PUT request api/products route in Insomnia** 
+
+**!!!Beware!!! If you need to PUT new product with tagId for the tag model, use 'tagIds' in your request and formluate them (If you want to add more of one) in a array.** ![Commencing POST request api/products route in Insomnia](./put.png) <br> <br>
+
+## Video Demo
+[![Video demo](./commencing.png)]
