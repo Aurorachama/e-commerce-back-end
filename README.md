@@ -186,4 +186,4 @@ DELETE request by id (eg: DELETE: api/products/1)
 **!!!Beware!!! If you need to PUT new product with tagId for the tag model, use 'tagIds' in your request and formluate them (If you want to add more of one) in a array.** ![Commencing POST request api/products route in Insomnia](./put.png) <br> <br>
 
 ## Video Demo
-[![Video demo](./commencing.png)]
+[![Video demo](./commencing.png)](https://drive.google.com/file/d/1FlFRzJf755PxNPGfRFZROxxX3SRJM36z/view)
