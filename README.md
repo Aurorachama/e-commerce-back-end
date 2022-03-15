@@ -106,8 +106,12 @@ The second initialization is .env, .env is used to store your user credential an
 ---
 
 **seeds file Initialization**
-* Inside `seeds` folder is some sample data for the database, you can choice to insert them the your database or start from scratch. 
-* If you want to use sample data, type **node seeds/index.js** as you are initializing the database
+
+~~* Inside `seeds` folder is some sample data for the database, you can choice to insert them to the your database **node index.js**~~.
+
+`You must go back to main folder to perform seed initialization`
+
+* If you want to use sample data, type **node seeds/index.js** as you are initializing the database `or start from scratch`
 
 ### End goal of .seeds Initialization
 * `the code you require to type is in orange branket`
